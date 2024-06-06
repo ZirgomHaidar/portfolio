@@ -1,0 +1,11 @@
+.navbar-container {
+  @apply flex justify-between items-center;
+}
+
+.mylogo img {
+  width: 75px;
+}
+
+/* .mylogo img:hover {
+  @apply bg-blend-luminosity;
+} */
