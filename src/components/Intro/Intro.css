@@ -1,0 +1,15 @@
+.intro-container {
+  @apply flex flex-row-reverse justify-evenly items-center gap-20 m-16;
+}
+
+.desc {
+  @apply text-4xl;
+}
+
+.desc h2 {
+  @apply text-3xl;
+}
+
+.my-Info img {
+  @apply w-96 h-96 object-cover rounded-full;
+}
