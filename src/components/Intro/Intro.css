@@ -1,5 +1,5 @@
 .intro-container {
-  @apply flex flex-row-reverse justify-evenly items-center gap-20 m-16;
+  @apply flex flex-row-reverse flex-grow-0 justify-evenly items-center gap-20 m-16 mt-40 mb-64;
 }
 
 .desc {

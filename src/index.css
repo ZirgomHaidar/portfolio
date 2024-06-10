@@ -5,7 +5,14 @@
 
 * {
   font-family: "Space Grotesk";
-  background-color: #12110c;
+}
+
+body {
   color: white;
-  margin: 20px;
+  background-color: #12110c;
+  margin: 60px;
+}
+
+*::-webkit-scrollbar {
+  display: none;
 }
