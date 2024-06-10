@@ -1,0 +1,7 @@
+.projects-container {
+  @apply mt-48 mb-24 flex flex-col gap-32 items-center justify-center;
+}
+
+li {
+  @apply text-2xl ml-8;
+}
