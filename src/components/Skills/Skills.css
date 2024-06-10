@@ -1,0 +1,7 @@
+.skill-container {
+  @apply mt-48 mb-24 flex flex-col gap-32 items-center justify-center;
+}
+
+.skill {
+  @apply bg-gradient-to-r from-neutral-900 to-neutral-800;
+}
