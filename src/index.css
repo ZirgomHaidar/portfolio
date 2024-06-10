@@ -10,7 +10,7 @@
 body {
   color: white;
   background-color: #12110c;
-  margin: 60px;
+  @apply md:m-10 lg:mt-16;
 }
 
 *::-webkit-scrollbar {

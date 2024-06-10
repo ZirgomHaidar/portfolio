@@ -6,7 +6,7 @@ const Projects = () => {
   return (
     <div className="projects-container">
       <h1 className="text-6xl">Projects</h1>
-      <div className="pro1 flex flex-row gap-32 ml-40 mr-40">
+      <div className="pro1 flex flex-col md:flex-row gap-20 md:gap-32 mx-10 md:mx-40">
         <div className="p1-left">
           <h1 className="text-4xl mb-10 mt-10 text-amber-200 ">
             Droidx-UI Website
@@ -23,15 +23,17 @@ const Projects = () => {
             <li>HTML & CSS</li>
             <li>JavaScript</li>
           </ul>
-          <button className="shadow-[inset_0_0_0_2px_#616467] text-white px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200 mt-10">
-            <a
-              href="https://github.com/ZirgomHaidar/DxWeb"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              View Project Source
-            </a>
-          </button>
+          <div className="flex justify-center md:justify-start">
+            <button className="shadow-[inset_0_0_0_2px_#616467] text-white px-12 py-4 rounded-full tracking-widest uppercase font-bold bg-transparent hover:bg-[#616467] hover:text-white dark:text-neutral-200 transition duration-200 mt-10">
+              <a
+                href="https://github.com/ZirgomHaidar/DxWeb"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View Project Source
+              </a>
+            </button>
+          </div>
         </div>
         <div className="p1-right">
           <div className="p1-left">

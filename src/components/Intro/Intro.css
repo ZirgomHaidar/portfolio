@@ -1,13 +1,13 @@
 .intro-container {
-  @apply flex flex-row-reverse flex-grow-0 justify-evenly items-center gap-20 m-16 mt-40 mb-64;
+  @apply flex flex-col md:flex-col lg:flex-row-reverse justify-evenly items-center gap-20 mx-10 mb-40 mt-24 md:mx-20 md:my-48 lg:mx-32 lg:mt-32 lg:mb-72;
 }
 
 .desc {
-  @apply text-4xl;
+  @apply text-xl md:text-2xl lg:text-3xl;
 }
 
 .desc h2 {
-  @apply text-3xl;
+  @apply text-xl md:text-2xl lg:text-3xl;
 }
 
 .my-Info img {

@@ -1,5 +1,5 @@
 .navbar-container {
-  @apply flex justify-between items-center;
+  @apply flex justify-between items-center m-10 md:m-10 lg:m-10;
 }
 
 .mylogo img {
