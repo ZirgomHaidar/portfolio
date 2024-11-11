@@ -12,7 +12,6 @@ import c from "./C.svg";
 import cpp from "./C++.svg";
 import java from "./java.svg";
 import python from "./python.svg";
-import rust from "./Rust.svg";
 
 export const my_skills = [
   {
@@ -30,10 +29,6 @@ export const my_skills = [
   {
     s_name: "Python",
     s_pic: python,
-  },
-  {
-    s_name: "Rust",
-    s_pic: rust,
   },
   {
     s_name: "HTML",
