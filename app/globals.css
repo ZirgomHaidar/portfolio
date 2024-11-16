@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    font-family: var(--font-Space-Grotesk)
+  }
+
+.project_Button {
+    @apply shadow-[inset_0_0_0_2px_#616467] text-white px-12 py-4 rounded-full tracking-widest uppercase bg-transparent hover:bg-[#616467] duration-150 lg:w-56;
+}
