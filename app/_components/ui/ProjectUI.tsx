@@ -3,7 +3,7 @@ import SwipeCarousel from "../ui/SwipeCarousel"
 
 export default function ProjectUI({ project }: { project: ProjectType }) {
   return (
-    <div className="md: xl: mx-10 flex w-full flex-col justify-between gap-10 md:mx-12 lg:flex-row">
+    <div className="mx-10 flex w-full flex-col justify-between gap-10 md:mx-12 lg:flex-row">
       <div className="p1-left flex flex-col gap-10 text-xl md:text-2xl lg:max-w-[600px]">
         <h1 className="text-3xl text-amber-200 md:text-4xl">{project.title}</h1>
         <h3 className="">{project.desc}</h3>

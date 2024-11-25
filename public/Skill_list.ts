@@ -1,4 +1,4 @@
-import css from "@/public/CSS3.svg"
+import css from "@/public/css.svg"
 import github from "@/public/github.svg"
 import gitlab from "@/public/gitlab.svg"
 import html from "@/public/HTML5.svg"
@@ -13,27 +13,19 @@ import cpp from "@/public/C++.svg"
 import java from "@/public/java.svg"
 import python from "@/public/python.svg"
 
-type skill = {
+export type skill = {
   s_name: string
   s_pic: string
 }
 
-export const my_skills: skill[]  = [
+export const my_skills: skill[] = [
   {
-    s_name: "C",
-    s_pic: c,
+    s_name: "SQL",
+    s_pic: sql,
   },
   {
-    s_name: "C++",
-    s_pic: cpp,
-  },
-  {
-    s_name: "Java",
-    s_pic: java,
-  },
-  {
-    s_name: "Python",
-    s_pic: python,
+    s_name: "MySQL",
+    s_pic: MySQL,
   },
   {
     s_name: "HTML",
@@ -56,6 +48,14 @@ export const my_skills: skill[]  = [
     s_pic: Tailwind,
   },
   {
+    s_name: "Mongo DB",
+    s_pic: mongodb,
+  },
+  {
+    s_name: "Python",
+    s_pic: python,
+  },
+  {
     s_name: "Github",
     s_pic: github,
   },
@@ -64,15 +64,15 @@ export const my_skills: skill[]  = [
     s_pic: gitlab,
   },
   {
-    s_name: "SQL",
-    s_pic: sql,
+    s_name: "C",
+    s_pic: c,
   },
   {
-    s_name: "MySQL",
-    s_pic: MySQL,
+    s_name: "C++",
+    s_pic: cpp,
   },
   {
-    s_name: "Mongo DB",
-    s_pic: mongodb,
+    s_name: "Java",
+    s_pic: java,
   },
 ]

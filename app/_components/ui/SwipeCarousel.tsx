@@ -1,48 +1,133 @@
 "use client"
 import Image from "next/image"
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef, RefObject } from "react"
 import { SsType } from "../Projects/ProjectList"
 
 export default function ImageCarousel({ images }: { images: SsType[] }) {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isDragging, setIsDragging] = useState(false)
+  const [startPos, setStartPos] = useState(0)
+  const [currentTranslate, setCurrentTranslate] = useState(0)
+  const [prevTranslate, setPrevTranslate] = useState(0)
+  const dragRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const animationRef = useRef<number>()
+  const { isVisible } = useCarouselIntersection(containerRef)
 
   useEffect(() => {
     let interval: ReturnType<typeof setInterval>
-    if (isAutoPlaying && !isModalOpen) {
+    if (isVisible && isAutoPlaying && !isModalOpen && !isDragging) {
       interval = setInterval(() => {
         setCurrentIndex((current) => (current + 1) % images.length)
       }, 5000)
     }
     return () => clearInterval(interval)
-  }, [isAutoPlaying, isModalOpen])
+  }, [isVisible, isAutoPlaying, isModalOpen, isDragging])
 
   const goToSlide = (index: number) => {
     setCurrentIndex(index)
+    setPrevTranslate(-index * 100)
+    setCurrentTranslate(-index * 100)
   }
 
   const previousSlide = () => {
-    setCurrentIndex((current) =>
-      current === 0 ? images.length - 1 : current - 1,
-    )
+    goToSlide(currentIndex === 0 ? images.length - 1 : currentIndex - 1)
   }
 
   const nextSlide = () => {
-    setCurrentIndex((current) => (current + 1) % images.length)
+    goToSlide((currentIndex + 1) % images.length)
   }
+
+  const handleDragStart = (e: React.MouseEvent | React.TouchEvent) => {
+    setIsDragging(true)
+    setIsAutoPlaying(false)
+
+    const clientX = "touches" in e ? e.touches[0].clientX : e.clientX
+    setStartPos(clientX)
+
+    cancelAnimationFrame(animationRef.current!)
+  }
+
+  const handleDragMove = (e: React.MouseEvent | React.TouchEvent) => {
+    if (!isDragging) return
+
+    const clientX = "touches" in e ? e.touches[0].clientX : e.clientX
+    const currentPosition = clientX
+    const walk =
+      ((currentPosition - startPos) / (dragRef.current?.offsetWidth || 1)) * 100
+    setCurrentTranslate(prevTranslate + walk)
+
+    animationRef.current = requestAnimationFrame(() => {
+      if (dragRef.current) {
+        dragRef.current.style.transform = `translateX(${currentTranslate}%)`
+      }
+    })
+  }
+
+  const handleDragEnd = () => {
+    setIsDragging(false)
+    setIsAutoPlaying(true)
+    cancelAnimationFrame(animationRef.current!)
+
+    const threshold = 20 // Percentage threshold for slide change
+    const walk = currentTranslate - prevTranslate
+
+    if (Math.abs(walk) > threshold) {
+      if (walk > 0 && currentIndex > 0) {
+        previousSlide()
+      } else if (walk < 0 && currentIndex < images.length - 1) {
+        nextSlide()
+      } else {
+        goToSlide(currentIndex)
+      }
+    } else {
+      goToSlide(currentIndex)
+    }
+  }
+
+  useEffect(() => {
+    const handleMouseUp = () => isDragging && handleDragEnd()
+    const handleMouseLeave = () => isDragging && handleDragEnd()
+
+    window.addEventListener("mouseup", handleMouseUp)
+    window.addEventListener("mouseleave", handleMouseLeave)
+
+    return () => {
+      window.removeEventListener("mouseup", handleMouseUp)
+      window.removeEventListener("mouseleave", handleMouseLeave)
+    }
+  }, [isDragging])
 
   return (
     <>
-      <div className="group relative mx-auto aspect-[16/9] w-full max-w-7xl sm:aspect-[2/1] lg:aspect-[21/9]">
+      <div
+        ref={containerRef}
+        className="group relative mx-auto w-full max-w-7xl"
+      >
         <div
           className="relative h-full overflow-hidden rounded-2xl shadow-xl"
-          onMouseEnter={() => setIsAutoPlaying(false)}
-          onMouseLeave={() => setIsAutoPlaying(true)}
+          onMouseEnter={() => !isDragging && setIsAutoPlaying(false)}
+          onMouseLeave={() => !isDragging && setIsAutoPlaying(true)}
         >
           <div
-            className="flex h-full transition-transform duration-500 ease-out"
-            style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+            ref={dragRef}
+            className={`flex h-full ${
+              !isDragging
+                ? "transition-transform duration-500 ease-out"
+                : "transition-none"
+            }`}
+            style={{
+              transform: `translateX(${isDragging ? currentTranslate : -currentIndex * 100}%)`,
+              cursor: isDragging ? "grabbing" : "grab",
+            }}
+            onMouseDown={handleDragStart}
+            onMouseMove={handleDragMove}
+            onMouseUp={handleDragEnd}
+            onTouchStart={handleDragStart}
+            onTouchMove={handleDragMove}
+            onTouchEnd={handleDragEnd}
           >
             {images.map((image, index) => (
               <CarouselSlide key={index} images={image} fullscreen={false} />
@@ -226,7 +311,7 @@ function CarouselModal({
       document.removeEventListener("keydown", handleEscape)
       document.body.style.overflow = ""
     }
-  }, [isOpen, onClose])
+  }, [isOpen])
 
   if (!isOpen) return null
 
@@ -255,7 +340,7 @@ function CarouselModal({
           </svg>
         </button>
 
-        <div className="group relative aspect-[16/9] w-full p-16">
+        <div className="group relative aspect-[16/9] w-full min-[1600px]:p-16">
           <div className="relative h-full overflow-hidden rounded-xl">
             <div
               className="flex h-full transition-transform duration-500 ease-out"
@@ -317,4 +402,33 @@ function CarouselControls({
       </button>
     </>
   )
+}
+
+function useCarouselIntersection(ref: RefObject<HTMLElement>) {
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    const element = ref.current
+    if (!element) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting)
+      },
+      {
+        threshold: 0.5, // Trigger when 50% of the carousel is visible
+        rootMargin: "50px", // Start observing slightly before the carousel comes into view
+      },
+    )
+
+    observer.observe(element)
+
+    return () => {
+      if (element) {
+        observer.unobserve(element)
+      }
+    }
+  }, [ref])
+
+  return { isVisible }
 }

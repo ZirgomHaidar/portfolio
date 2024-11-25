@@ -2,6 +2,8 @@ import pfp from "@/public/myimage.png"
 import { BackgroundGradient } from "../ui/background-gradient"
 import { FlipWords } from "../ui/flip-words"
 import Image from "next/image"
+import { my_skills } from "../../../public/Skill_list"
+import { InfiniteMovingCards } from "../ui/infinite-moving-cards"
 
 const words: string[] = [
   "ZirgomHaidar",
@@ -14,12 +16,7 @@ const words: string[] = [
 
 export default function Intro() {
   return (
-    <div className="mx-10 flex flex-col items-center justify-evenly gap-20 md:mx-20 md:my-14 md:flex-col lg:mx-32 lg:mb-44 lg:flex-row-reverse">
-      <div className="size-80 sm:size-96">
-        <BackgroundGradient className="rounded-full md:size-96">
-          <Image src={pfp} alt="pfp" className="rounded-full object-contain" />
-        </BackgroundGradient>
-      </div>
+    <div className="mx-10 flex flex-col-reverse items-center justify-evenly gap-20 md:mx-20 md:my-14 md:flex-col-reverse lg:mx-32 lg:mb-28 min-[1160px]:flex-col-reverse min-[1200px]:flex-row">
       <div className="text-xl md:text-2xl lg:text-3xl">
         I`M <br />
         <FlipWords
@@ -35,7 +32,18 @@ export default function Intro() {
           I fondly anticipate working in a challenging yet rewarding
           organisation to attain its vision for personal growth.
         </h2>
+        <span className="mt-4 flex items-center justify-center lg:justify-start">
+          <InfiniteMovingCards
+            items={my_skills}
+            direction="left"
+            speed="fast"
+          />
+        </span>
       </div>
+
+      <BackgroundGradient className="size-80 sm:size-96">
+        <Image src={pfp} alt="pfp" className="rounded-full" />
+      </BackgroundGradient>
     </div>
   )
 }
