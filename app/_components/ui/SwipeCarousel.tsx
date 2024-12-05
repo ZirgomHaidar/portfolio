@@ -170,7 +170,7 @@ function CarouselSlide({
   fullscreen: boolean
 }) {
   return (
-    <div className="relative h-full w-full flex-shrink-0">
+    <div className="relative min-h-[300px] w-full flex-shrink-0">
       <Image
         src={images.url}
         alt="pic"
