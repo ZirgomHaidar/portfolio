@@ -36,7 +36,7 @@ export const ProjectList: ProjectType[] = [
     desc: "At Rising OS, we're constantly striving to improve your user experience. Our team is actively working on adding new features and enhancements every single day!",
     tools: ["React", "Next.js 14", "Tailwind CSS", "Framer-motion"],
     sourceLink: "https://github.com/ZirgomHaidar/RisingOsSite",
-    viewLink: "https://rising-os-site.vercel.app/",
+    viewLink: "",
     ss: [
       {
         url: pro3_v,
@@ -118,7 +118,7 @@ export const ProjectList: ProjectType[] = [
     desc: "DroidX-UI is a custom rom based on Pure AOSP which aims to provide a stable and user friendly experience with touch of customisations.",
     tools: ["React JS", "Tailwind CSS", "Framer-motion"],
     sourceLink: "https://github.com/ZirgomHaidar/DxWeb",
-    viewLink: "https://droidxui.tech/",
+    viewLink: "",
     ss: [
       {
         url: pro1_s2,

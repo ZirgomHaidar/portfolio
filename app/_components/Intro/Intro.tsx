@@ -26,7 +26,7 @@ export default function Intro() {
         <br />
         <br />
         <h1 className="text-nowrap pb-6 pt-3 text-[2rem] leading-10 text-amber-200 md:pt-8 md:text-3xl lg:text-4xl">
-          Full-Stack Developer
+          Frontend Developer
         </h1>
         <h2>
           I fondly anticipate working in a challenging yet rewarding
